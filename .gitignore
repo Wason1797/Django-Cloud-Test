@@ -115,3 +115,4 @@ dmypy.json
 PersonApp/credentials.txt
 PersonApp/secrets.json
 django-deploy-vm.pem
+django-deploy-vm.ppk

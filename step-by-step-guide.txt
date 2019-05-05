@@ -1,6 +1,7 @@
 # use pip freeze > requirements.txt to generate requirements
 # create virtual enviroment
-# install requirements -> pip install -r requirements.txt
+# install requirements -> pip install -r requirements.txt (sudo apt install libpq-dev python3-dev)
+    in case psycopg2 does not install
 # create secrets.json file
 # follow settings.py example on this repo
 # create an aws s3 bucket, set block ACL policies to False
@@ -11,4 +12,49 @@
 # create a postgresql rds free-tier instance
 # update secrets.json with db credentials
 # Create an ec2 instance
+# install pip, virtualenv, nginx, supervisor
+# install gunicorn with pip
+# gunicorn --bind 0.0.0.0:8000 PersonApp.wsgi:application -> from parent folder
+# cd /etc/supervisor/conf.d/
+# touch gunicorn.conf
 
+add this ->
+
+[program:gunicorn]
+directory=/home/ubuntu/Django-Cloud-Test/PersonApp
+command=/home/ubuntu/Django-Cloud-Test/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/Django-Cloud-Test/PersonApp/app.sock PersonApp.wsgi:application
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/gunicorn/gunicorn.err.log
+stdout=logfile=/var/log/gunicorn/gunicorn.out.log
+
+[group:guni]
+programs:gunicorn
+
+# sudo mkdir /var/log/gunicorn
+# sudo supervisorctl reread
+# sudo supervisorctl update
+# sudo supervisorctl status
+
+# cd /etc/nginx/sites-available/
+# sudo touch django.conf
+
+
+server {
+        listen 80 ;
+        server_name ec2-34-239-125-94.compute-1.amazonaws.com; 
+
+        location / {
+            include proxy_params;
+            proxy_pass http://unix:/home/ubuntu/Django-Cloud-Test/PersonApp/app.sock;
+        }
+
+        
+}
+
+
+# sudo ln django.conf /etc/nginx/sites-enabled/
+# sudo nginx -t
+# sudo service nginx restart
+
+# check security group permisions to access db instance
