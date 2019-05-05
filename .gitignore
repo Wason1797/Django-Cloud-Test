@@ -114,3 +114,4 @@ dmypy.json
 .pyre/
 PersonApp/credentials.txt
 PersonApp/secrets.json
+django-deploy-vm.pem

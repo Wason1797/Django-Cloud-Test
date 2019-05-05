@@ -8,4 +8,4 @@ class Person(models.Model):
     person_attributes = JSONField()
 
     def __str__(self):
-        return self.person_id + ": " + self.person_name
+        return str(self.person_id) + ": " + self.person_name

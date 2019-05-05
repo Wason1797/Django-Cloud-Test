@@ -1,0 +1,14 @@
+# use pip freeze > requirements.txt to generate requirements
+# create virtual enviroment
+# install requirements -> pip install -r requirements.txt
+# create secrets.json file
+# follow settings.py example on this repo
+# create an aws s3 bucket, set block ACL policies to False
+# create IAM user, add s3Complete access
+# generate keys and secrets
+# update secrets.json file
+# run -> python manage.py collectstatic ; to upload all static files to s3
+# create a postgresql rds free-tier instance
+# update secrets.json with db credentials
+# Create an ec2 instance
+
