@@ -53,7 +53,7 @@ sudo touch gunicorn.conf
 sudo cat << EOF > gunicorn.conf
 [program:gunicorn]
 directory=${working_path}/${project_folder}/${project_name}
-command=${working_path}/venv/bin/gunicorn --workers 3 --bind unix:${working_path}/${project_folder}/${project_name}/app.sock PersonApp.wsgi:application
+command=${working_path}/venv/bin/gunicorn --workers 3 --bind unix:${working_path}/${project_folder}/${project_name}/app.sock ${project_name}.wsgi:application
 autostart=true
 autorestart=true
 stderr_logfile=/var/log/gunicorn/gunicorn.err.log
